@@ -1,5 +1,8 @@
-[phases.build]
+[phases.install]
 cmds = ["pip install -r Requirements.txt"]
 
 [start]
 cmd = "python Code.py"
+
+[variables]
+NIXPACKS_PYTHON_VERSION = "3.11"
