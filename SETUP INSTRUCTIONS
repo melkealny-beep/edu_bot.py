@@ -1,0 +1,473 @@
+# 🚀 EDU BOT - Setup & Running Instructions
+
+## 📋 Table of Contents
+1. [Prerequisites](#prerequisites)
+2. [Installation](#installation)
+3. [Configuration](#configuration)
+4. [Running the Bot](#running-the-bot)
+5. [Production Deployment](#production-deployment)
+6. [Troubleshooting](#troubleshooting)
+7. [Security Best Practices](#security-best-practices)
+
+---
+
+## 1️⃣ Prerequisites
+
+### System Requirements
+- **Python 3.8 or higher** (Python 3.10+ recommended)
+- **Operating System**: Linux, macOS, or Windows
+- **RAM**: Minimum 512MB
+- **Disk Space**: 100MB minimum
+
+### Required Accounts & Keys
+1. **Telegram Bot Token**
+   - Create a bot via [@BotFather](https://t.me/BotFather) on Telegram
+   - Command: `/newbot`
+   - Save the token (format: `1234567890:ABCdefGHIjklMNOpqrsTUVwxyz`)
+
+2. **Groq API Key** (Optional but recommended for AI features)
+   - Sign up at [https://groq.com](https://groq.com)
+   - Generate API key from dashboard
+   - Save the key securely
+
+3. **Admin Telegram ID** (Optional but recommended)
+   - Get your Telegram user ID from [@userinfobot](https://t.me/userinfobot)
+   - This enables admin commands
+
+---
+
+## 2️⃣ Installation
+
+### Step 1: Clone or Download
+```bash
+# If using git
+git clone https://github.com/melkealny-beep/edu_bot.py.git
+cd edu_bot.py
+
+# Or download and extract the ZIP
+```
+
+### Step 2: Create Virtual Environment (Recommended)
+```bash
+# Create virtual environment
+python3 -m venv venv
+
+# Activate it
+# On Linux/macOS:
+source venv/bin/activate
+
+# On Windows:
+venv\Scripts\activate
+```
+
+### Step 3: Install Dependencies
+```bash
+# Upgrade pip first
+pip install --upgrade pip
+
+# Install all requirements
+pip install -r requirements.txt
+
+# Verify installation
+python -c "import telegram; print(telegram.__version__)"
+```
+
+---
+
+## 3️⃣ Configuration
+
+### Step 1: Create .env File
+```bash
+# Copy the example file
+cp .env.example .env
+
+# Or create manually
+touch .env
+```
+
+### Step 2: Configure Environment Variables
+Edit `.env` file with your favorite text editor:
+
+```env
+# ═══════════════════════════════════════════════════════
+# Edu Bot Configuration
+# ═══════════════════════════════════════════════════════
+
+# REQUIRED: Telegram Bot Token from @BotFather
+TELEGRAM_TOKEN=1234567890:ABCdefGHIjklMNOpqrsTUVwxyz
+
+# OPTIONAL: Groq AI API Key (enables AI chat features)
+GROQ_API_KEY=gsk_xxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+# OPTIONAL: Admin Telegram User ID (enables admin commands)
+ADMIN_ID=123456789
+
+# OPTIONAL: Custom knowledge base file path
+KNOWLEDGE_FILE=knowledge.txt
+```
+
+**⚠️ IMPORTANT:** 
+- Never commit `.env` to version control
+- Add `.env` to `.gitignore`
+- Keep your tokens secret!
+
+### Step 3: Create Knowledge Base (Optional)
+Create `knowledge.txt` in the same directory:
+
+```text
+# Knowledge Base for Edu Bot
+
+## About the Center
+سنتر Edu هو مركز متخصص في تطوير مهارات المدرسين والمحاضرين.
+
+## Courses Available
+- مهارات التدريس الحديث: 800 جنيه، 4 أسابيع
+- إنتاج المحتوى التعليمي: 1200 جنيه، 3 أسابيع
+...
+
+## Studio Information
+مطبعة X.press - استديو تصوير احترافي
+اللوكيشنات المتاحة:
+- كلاس دراسي
+- مكتبة
+...
+```
+
+---
+
+## 4️⃣ Running the Bot
+
+### Development Mode (Testing)
+
+```bash
+# Activate virtual environment first
+source venv/bin/activate  # Linux/macOS
+# or
+venv\Scripts\activate     # Windows
+
+# Run the bot
+python edu_bot_fixed.py
+
+# You should see:
+# 🚀 Starting Edu & X.press Bot...
+# ✅ Bot is running! Press Ctrl+C to stop.
+```
+
+### Verify Bot is Working
+1. Open Telegram
+2. Search for your bot by username
+3. Send `/start` command
+4. You should receive a welcome message
+
+### Stop the Bot
+```bash
+# Press Ctrl+C in the terminal
+# Bot will shutdown gracefully
+```
+
+---
+
+## 5️⃣ Production Deployment
+
+### Option A: Using systemd (Linux - Recommended)
+
+1. **Create service file:**
+```bash
+sudo nano /etc/systemd/system/edu_bot.service
+```
+
+2. **Add configuration:**
+```ini
+[Unit]
+Description=Edu Telegram Bot
+After=network.target
+
+[Service]
+Type=simple
+User=yourusername
+WorkingDirectory=/path/to/edu_bot
+Environment="PATH=/path/to/venv/bin"
+ExecStart=/path/to/venv/bin/python edu_bot_fixed.py
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target
+```
+
+3. **Enable and start:**
+```bash
+sudo systemctl daemon-reload
+sudo systemctl enable edu_bot
+sudo systemctl start edu_bot
+
+# Check status
+sudo systemctl status edu_bot
+
+# View logs
+sudo journalctl -u edu_bot -f
+```
+
+### Option B: Using screen (Simple)
+
+```bash
+# Install screen
+sudo apt-get install screen  # Ubuntu/Debian
+
+# Start a named screen session
+screen -S edu_bot
+
+# Run the bot
+python edu_bot_fixed.py
+
+# Detach from screen: Ctrl+A, then D
+
+# Reattach to screen
+screen -r edu_bot
+
+# List all screens
+screen -ls
+```
+
+### Option C: Using PM2 (Node.js ecosystem)
+
+```bash
+# Install PM2
+npm install -g pm2
+
+# Start bot
+pm2 start edu_bot_fixed.py --name edu_bot --interpreter python3
+
+# Other commands
+pm2 status
+pm2 logs edu_bot
+pm2 restart edu_bot
+pm2 stop edu_bot
+
+# Auto-start on boot
+pm2 startup
+pm2 save
+```
+
+### Option D: Using Docker (Advanced)
+
+Create `Dockerfile`:
+```dockerfile
+FROM python:3.10-slim
+
+WORKDIR /app
+
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+COPY edu_bot_fixed.py .
+COPY knowledge.txt .
+
+CMD ["python", "edu_bot_fixed.py"]
+```
+
+Build and run:
+```bash
+# Build image
+docker build -t edu_bot .
+
+# Run container
+docker run -d \
+  --name edu_bot \
+  --env-file .env \
+  --restart unless-stopped \
+  -v $(pwd)/edu_bookings.db:/app/edu_bookings.db \
+  -v $(pwd)/logs:/app/logs \
+  edu_bot
+
+# View logs
+docker logs -f edu_bot
+```
+
+---
+
+## 6️⃣ Troubleshooting
+
+### Common Issues
+
+#### Bot doesn't start
+```bash
+# Check Python version
+python --version  # Should be 3.8+
+
+# Check dependencies
+pip list | grep telegram
+
+# Check .env file
+cat .env  # Verify TELEGRAM_TOKEN is set
+
+# Check logs
+ls -la logs/
+cat logs/edu_bot.log
+```
+
+#### "Invalid token" error
+- Double-check your `TELEGRAM_TOKEN` in `.env`
+- Make sure there are no extra spaces
+- Token format: `NUMBER:ALPHANUMERIC`
+- Get a new token from @BotFather if needed
+
+#### Database errors
+```bash
+# Check database file
+ls -la edu_bookings.db
+
+# Check permissions
+chmod 644 edu_bookings.db
+
+# If corrupted, delete and restart (CAUTION: loses data!)
+rm edu_bookings.db
+python edu_bot_fixed.py
+```
+
+#### Groq API not working
+- Verify `GROQ_API_KEY` is correct
+- Check API quota at groq.com
+- Bot works without Groq (with limited AI features)
+- Error messages will indicate API issues
+
+#### Port already in use (if using webhooks)
+```bash
+# Find process using port
+lsof -i :8443
+
+# Kill process
+kill -9 <PID>
+```
+
+### Debug Mode
+
+Enable detailed logging:
+```python
+# Edit edu_bot_fixed.py
+logging.basicConfig(
+    level=logging.DEBUG,  # Changed from INFO
+    # ...
+)
+```
+
+---
+
+## 7️⃣ Security Best Practices
+
+### ✅ Do's
+1. **Never commit .env file**
+   ```bash
+   echo ".env" >> .gitignore
+   ```
+
+2. **Set proper file permissions**
+   ```bash
+   chmod 600 .env  # Only owner can read/write
+   chmod 644 edu_bot_fixed.py  # Owner write, all read
+   ```
+
+3. **Use environment variables**
+   - All sensitive data in `.env`
+   - Never hardcode tokens in code
+
+4. **Regular backups**
+   ```bash
+   # Backup database
+   cp edu_bookings.db edu_bookings.db.backup
+   
+   # Or use cron
+   0 2 * * * cp /path/to/edu_bookings.db /backups/edu_bookings_$(date +\%Y\%m\%d).db
+   ```
+
+5. **Monitor logs**
+   ```bash
+   # Watch logs in real-time
+   tail -f logs/edu_bot.log
+   
+   # Search for errors
+   grep ERROR logs/edu_bot.log
+   ```
+
+6. **Update regularly**
+   ```bash
+   # Update dependencies
+   pip install --upgrade -r requirements.txt
+   
+   # Check for security vulnerabilities
+   pip install safety
+   safety check
+   ```
+
+### ❌ Don'ts
+1. Don't expose bot token publicly
+2. Don't run as root user
+3. Don't disable SSL verification
+4. Don't store passwords in code
+5. Don't ignore error logs
+
+---
+
+## 📊 Admin Commands
+
+Once the bot is running, these commands are available to the admin (configured via `ADMIN_ID`):
+
+| Command | Description |
+|---------|-------------|
+| `/bookings` | View all bookings |
+| `/stats` | View bot statistics |
+| `/reload` | Reload knowledge base without restart |
+
+---
+
+## 🔄 Updating the Bot
+
+```bash
+# 1. Stop the bot
+sudo systemctl stop edu_bot
+# or press Ctrl+C
+
+# 2. Backup database
+cp edu_bookings.db edu_bookings.db.backup
+
+# 3. Pull latest code
+git pull origin main
+
+# 4. Update dependencies
+pip install --upgrade -r requirements.txt
+
+# 5. Restart bot
+sudo systemctl start edu_bot
+# or python edu_bot_fixed.py
+```
+
+---
+
+## 📞 Support
+
+### Need Help?
+- **GitHub Issues**: [Report bugs](https://github.com/melkealny-beep/edu_bot.py/issues)
+- **Documentation**: Check `BUG_REPORT.md` for known issues
+- **Logs**: Always check `logs/edu_bot.log` first
+
+### Best Practices for Getting Help
+1. Include full error message
+2. Share relevant log excerpts
+3. Mention Python version: `python --version`
+4. Mention OS: `uname -a` (Linux) or `ver` (Windows)
+
+---
+
+## ✨ Next Steps
+
+1. ✅ Test all features (booking, chat, admin commands)
+2. 📝 Customize `knowledge.txt` with your actual information
+3. 🎨 Update CENTER, COURSES, PACKAGES in code
+4. 📱 Set up monitoring/alerts
+5. 🔐 Regular security audits
+6. 📊 Plan database backups
+
+---
+
+**Good luck with your Edu Bot! 🚀**
+
