@@ -1,0 +1,67 @@
+# ════════════════════════════════════════════════════════════
+# Requirements for Edu Bot - Educational Telegram Bot
+# Python 3.8+ required
+# ════════════════════════════════════════════════════════════
+
+# Core Telegram Bot Library
+python-telegram-bot==20.7
+# Note: v20.7 is the latest stable version with full async support
+
+# HTTP Client for Groq API calls
+httpx==0.26.0
+# Async HTTP client with timeout and retry support
+
+# Environment Variable Management
+python-dotenv==1.0.0
+# Secure loading of API keys and configuration from .env file
+
+# ════════════════════════════════════════════════════════════
+# Optional but Recommended
+# ════════════════════════════════════════════════════════════
+
+# Better logging (optional enhancement)
+# colorlog==6.8.0
+# Adds color to console logs for easier debugging
+
+# ════════════════════════════════════════════════════════════
+# Development Dependencies (optional, for testing)
+# ════════════════════════════════════════════════════════════
+
+# pytest==7.4.3
+# For unit testing
+
+# pytest-asyncio==0.21.1
+# Async testing support
+
+# black==23.12.1
+# Code formatting
+
+# pylint==3.0.3
+# Code linting
+
+# mypy==1.7.1
+# Static type checking
+
+# ════════════════════════════════════════════════════════════
+# Notes:
+# ════════════════════════════════════════════════════════════
+# 
+# 1. All core dependencies are pinned to specific versions for
+#    reproducibility and stability
+# 
+# 2. Python 3.8 or higher is required due to:
+#    - Type hints (typing module features)
+#    - async/await syntax
+#    - python-telegram-bot v20.x requirements
+# 
+# 3. To install:
+#    pip install -r requirements.txt
+# 
+# 4. To install with development dependencies:
+#    Uncomment dev dependencies and run:
+#    pip install -r requirements.txt
+# 
+# 5. For production, you may also want:
+#    - gunicorn or uvicorn (if running as web service)
+#    - supervisor (for process management)
+#    - redis (for rate limiting - future enhancement)
