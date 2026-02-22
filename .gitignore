@@ -1,24 +1,61 @@
-# ─── Secrets ───────────────────────────────
-.env
+# ════════════════════════════════════════════════════════════
+# Edu Bot Environment Configuration
+# ════════════════════════════════════════════════════════════
+#
+# INSTRUCTIONS:
+# 1. Copy this file to .env:  cp .env.example .env
+# 2. Fill in your actual values
+# 3. NEVER commit .env to version control
+# 4. Keep your tokens secret!
+#
+# ════════════════════════════════════════════════════════════
 
-# ─── Database ──────────────────────────────
-*.db
-*.sqlite
-*.sqlite3
+# ─── REQUIRED ─────────────────────────────────────────────────
 
-# ─── Logs ──────────────────────────────────
-logs/
-*.log
+# Telegram Bot Token from @BotFather
+# Get it from: https://t.me/BotFather
+# Format: 1234567890:ABCdefGHIjklMNOpqrsTUVwxyz
+TELEGRAM_TOKEN=your_telegram_bot_token_here
 
-# ─── Python ────────────────────────────────
-__pycache__/
-*.py[cod]
-*.pyo
-.Python
-venv/
-env/
-.venv/
+# ─── OPTIONAL (but recommended) ───────────────────────────────
 
-# ─── OS ────────────────────────────────────
-.DS_Store
-Thumbs.db
+# Groq AI API Key for chat features
+# Get it from: https://console.groq.com/keys
+# Format: gsk_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+# Note: Bot works without this, but AI chat will be disabled
+GROQ_API_KEY=your_groq_api_key_here
+
+# Admin Telegram User ID for management commands
+# Get your ID from: @userinfobot on Telegram
+# Format: 123456789 (numbers only)
+# Note: Only this user can access /bookings, /stats, /reload
+ADMIN_ID=your_telegram_user_id_here
+
+# ─── OPTIONAL (advanced) ──────────────────────────────────────
+
+# Custom knowledge base file path
+# Default: knowledge.txt in the same directory
+# You can specify absolute or relative path
+KNOWLEDGE_FILE=knowledge.txt
+
+# ════════════════════════════════════════════════════════════
+# SECURITY NOTES:
+# ════════════════════════════════════════════════════════════
+#
+# 1. File Permissions:
+#    chmod 600 .env
+#    (Only owner can read/write)
+#
+# 2. Never commit .env:
+#    Add to .gitignore:
+#    echo ".env" >> .gitignore
+#
+# 3. Rotate tokens regularly:
+#    - Use @BotFather to revoke old tokens
+#    - Generate new ones if compromised
+#
+# 4. Backup safely:
+#    - If backing up, ensure backups are encrypted
+#    - Never store in public repositories
+#
+# ════════════════════════════════════════════════════════════
