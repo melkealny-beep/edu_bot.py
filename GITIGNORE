@@ -1,0 +1,182 @@
+# ════════════════════════════════════════════════════════════
+# Python Edu Bot - .gitignore
+# ════════════════════════════════════════════════════════════
+
+# ─── Environment & Secrets ────────────────────────────────────
+.env
+.env.local
+.env.*.local
+*.env
+
+# ─── Python ───────────────────────────────────────────────────
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# PyInstaller
+*.manifest
+*.spec
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Virtual environments
+venv/
+ENV/
+env/
+.venv
+.virtualenv
+
+# ─── IDE & Editors ────────────────────────────────────────────
+# PyCharm
+.idea/
+*.iml
+*.iws
+.idea_modules/
+
+# VSCode
+.vscode/
+*.code-workspace
+
+# Sublime Text
+*.sublime-project
+*.sublime-workspace
+
+# Vim
+*.swp
+*.swo
+*~
+.vim/
+
+# Emacs
+*~
+\#*\#
+.\#*
+
+# ─── OS Files ─────────────────────────────────────────────────
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Linux
+.directory
+.Trash-*
+
+# ─── Application Specific ─────────────────────────────────────
+# Database files
+*.db
+*.sqlite
+*.sqlite3
+*.db-journal
+edu_bookings.db
+edu_bookings.db.backup
+
+# Log files
+logs/
+*.log
+log.txt
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+
+# Backups
+*.backup
+*.bak
+backup/
+backups/
+
+# Knowledge base (if contains sensitive info)
+# Uncomment if your knowledge.txt contains private data:
+# knowledge.txt
+
+# ─── Testing ──────────────────────────────────────────────────
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+.pytest_cache/
+
+# ─── Documentation ────────────────────────────────────────────
+# Sphinx documentation
+docs/_build/
+
+# ─── Other ────────────────────────────────────────────────────
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# pyenv
+.python-version
+
+# Celery
+celerybeat-schedule
+celerybeat.pid
+
+# SageMath parsed files
+*.sage.py
+
+# Spyder project settings
+.spyderproject
+.spyproject
+
+# Rope project settings
+.ropeproject
+
+# mkdocs documentation
+/site
+
+# mypy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Pyre type checker
+.pyre/
+
+# ════════════════════════════════════════════════════════════
+# Important: Always keep .env files secret!
+# Never commit API keys, tokens, or passwords to version control
+# ════════════════════════════════════════════════════════════
